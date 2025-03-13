@@ -1,4 +1,4 @@
-import {NgModule, provideZoneChangeDetection} from '@angular/core';
+import { NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {ReactiveFormsModule} from '@angular/forms';
 import {AppComponent} from './app.component';
@@ -10,6 +10,9 @@ import { UserEffects } from './store/user.effects';
 import { RouterModule } from '@angular/router';
 import { routes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
+import { FormPageComponent } from './pages/form-page/form-page.component';
+import { RemoteWrapperModule } from './remote.wrapper.module';
+import { RemoteLoaderService } from './remote-loader.service';
 
 @NgModule({
   imports: [
@@ -23,9 +26,17 @@ import { provideHttpClient } from '@angular/common/http';
       logOnly:false
     }),
   ],
-  providers:[provideHttpClient()],
+  providers:[provideHttpClient(),{
+    provide: 'REMOTE_MODULE_INITIALIZER',
+    useFactory: async (loader: RemoteLoaderService) => {
+      const module = await loader.loadDynamicModule();
+      return module;
+    },
+    deps: [RemoteLoaderService],
+  },],
   declarations: [
-    AppComponent
+    AppComponent,
+    FormPageComponent
   ],
   bootstrap: [
     AppComponent

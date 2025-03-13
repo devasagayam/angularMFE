@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { loadRemoteModule } from '@angular-architects/module-federation';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { RemoteLoaderService } from './remote-loader.service';
 
 @Component({
   selector: 'app-root',
@@ -6,4 +8,8 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {}
+export class AppComponent  {
+   
+    
+
+}

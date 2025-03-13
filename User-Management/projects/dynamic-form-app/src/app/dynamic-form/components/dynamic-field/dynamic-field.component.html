@@ -1,0 +1,212 @@
+<div [formGroup]="form" *ngIf="field.accessModifier !== 'HIDDEN'">
+    <label [for]="field.fieldName">{{ field.label || field.fieldName }}</label>
+  
+    <!-- Text Input -->
+    <input
+      *ngIf="field.dataType === 'TEXT'"
+      type="text"
+      [id]="field.fieldName"
+      [formControlName]="field.fieldName"
+      [placeholder]="field.placeholder || ''"
+    >
+  
+    <!-- Password Input -->
+    <input
+      *ngIf="field.dataType === 'PASSWORD'"
+      type="password"
+      [id]="field.fieldName"
+      [formControlName]="field.fieldName"
+      [placeholder]="field.placeholder || ''"
+    >
+  
+    <!-- Email Input -->
+    <input
+      *ngIf="field.dataType === 'EMAIL'"
+      type="email"
+      [id]="field.fieldName"
+      [formControlName]="field.fieldName"
+      [placeholder]="field.placeholder || ''"
+    >
+  
+    <!-- Number Input -->
+    <input
+      *ngIf="field.dataType === 'NUMBER'"
+      type="number"
+      [id]="field.fieldName"
+      [formControlName]="field.fieldName"
+      [placeholder]="field.placeholder || ''"
+    >
+  
+    <!-- Textarea -->
+    <textarea
+      *ngIf="field.dataType === 'TEXTAREA'"
+      [id]="field.fieldName"
+      [formControlName]="field.fieldName"
+      [placeholder]="field.placeholder || ''"
+    ></textarea>
+  
+    <!-- Phone Input -->
+    <input
+      *ngIf="field.dataType === 'PHONE'"
+      type="tel"
+      [id]="field.fieldName"
+      [formControlName]="field.fieldName"
+      [placeholder]="field.placeholder || ''"
+    >
+  
+    <!-- URL Input -->
+    <input
+      *ngIf="field.dataType === 'URL'"
+      type="url"
+      [id]="field.fieldName"
+      [formControlName]="field.fieldName"
+      [placeholder]="field.placeholder || ''"
+    >
+  
+    <!-- Time Input -->
+    <input
+      *ngIf="field.dataType === 'TIME'"
+      type="time"
+      [id]="field.fieldName"
+      [formControlName]="field.fieldName"
+    >
+  
+    <!-- DateTime Input -->
+    <input
+      *ngIf="field.dataType === 'DATETIME'"
+      type="datetime-local"
+      [id]="field.fieldName"
+      [formControlName]="field.fieldName"
+    >
+  
+    <!-- Currency Input -->
+    <input
+      *ngIf="field.dataType === 'CURRENCY'"
+      type="number"
+      step="0.01"
+      [id]="field.fieldName"
+      [formControlName]="field.fieldName"
+      [placeholder]="field.placeholder || ''"
+    >
+  
+    <!-- Dropdown -->
+    <select
+      *ngIf="field.dataType === 'DROPDOWN'"
+      [id]="field.fieldName"
+      [formControlName]="field.fieldName"
+    >
+      <option value="">Select an option</option>
+      <option
+        *ngFor="let option of field.options"
+        [value]="option.optionValue"
+        [disabled]="option.disabled"
+      >
+        {{ option.optionLabel }}
+      </option>
+    </select>
+  
+    <!-- Multi Select -->
+    <select
+      *ngIf="field.dataType === 'MULTI_SELECT'"
+      [id]="field.fieldName"
+      [formControlName]="field.fieldName"
+      multiple
+    >
+      <option
+        *ngFor="let option of field.options"
+        [value]="option.optionValue"
+        [disabled]="option.disabled"
+      >
+        {{ option.optionLabel }}
+      </option>
+    </select>
+  
+    <!-- Radio Buttons -->
+    <div *ngIf="field.dataType === 'RADIO'" class="radio-group">
+      <div *ngFor="let option of field.options" class="radio-option">
+        <input
+          type="radio"
+          [id]="field.fieldName + '_' + option.optionValue"
+          [formControlName]="field.fieldName"
+          [value]="option.optionValue"
+          [disabled]="option.disabled || false"
+        >
+        <label [for]="field.fieldName + '_' + option.optionValue">
+          {{ option.optionLabel }}
+        </label>
+      </div>
+    </div>
+  
+    <!-- Boolean -->
+    <input
+      *ngIf="field.dataType === 'BOOLEAN'"
+      type="checkbox"
+      [id]="field.fieldName"
+      [formControlName]="field.fieldName"
+    >
+  
+    <!-- Range -->
+    <input
+      *ngIf="field.dataType === 'RANGE'"
+      type="range"
+      [id]="field.fieldName"
+      [formControlName]="field.fieldName"
+      [min]="field.validation?.min"
+      [max]="field.validation?.max"
+    >
+  
+    <!-- Color -->
+    <input
+      *ngIf="field.dataType === 'COLOR'"
+      type="color"
+      [id]="field.fieldName"
+      [formControlName]="field.fieldName"
+    >
+  
+    <!-- File Upload -->
+    <input
+      *ngIf="field.dataType === 'DOC_UPLOAD'"
+      type="file"
+      [id]="field.fieldName"
+      (change)="onFileChange($event)"
+      [accept]="field.validation?.fileTypes?.join(',')"
+    >
+  
+    <!-- Image Upload -->
+    <input
+      *ngIf="field.dataType === 'IMAGE_UPLOAD'"
+      type="file"
+      [id]="field.fieldName"
+      (change)="onFileChange($event)"
+      accept="image/*"
+    >
+  
+    <!-- Date Input -->
+    <input
+      *ngIf="field.dataType === 'DATE'"
+      type="date"
+      [id]="field.fieldName"
+      [formControlName]="field.fieldName"
+    >
+  
+    <!-- Help text -->
+    <small *ngIf="field?.metadata?.helpText" class="help-text">
+      {{ field.metadata?.helpText }}
+    </small>
+  
+    <!-- Error messages -->
+    <div *ngIf="form.get(field.fieldName)?.invalid && form.get(field.fieldName)?.touched" class="error-message">
+      <span *ngIf="form.get(field.fieldName)?.errors?.['required']">
+        This field is required
+      </span>
+      <span *ngIf="form.get(field.fieldName)?.errors?.['email']">
+        Please enter a valid email address
+      </span>
+      <span *ngIf="form.get(field.fieldName)?.errors?.['pattern']">
+        Please enter a valid format
+      </span>
+      <span *ngIf="form.get(field.fieldName)?.errors?.['custom']">
+        {{ field.validation?.customMessage }}
+      </span>
+    </div>
+  </div>

@@ -8,7 +8,8 @@ module.exports = withModuleFederationPlugin({
   //   './UserFacadeModule': './projects/host-app/src/app/services/user-facade.module.ts', 
   // },
   remotes: {
-    "mfeApp": "mfeApp@http://localhost:4300/remoteEntry.js" 
+    "mfeApp": "mfeApp@http://localhost:4300/remoteEntry.js" ,
+    "dynamic-form-app": "dynamic-form-app@http://localhost:4400/remoteEntry.js"
   },
   shared: {
     ...shareAll({ singleton: true, strictVersion: false, requiredVersion: 'auto' }),
