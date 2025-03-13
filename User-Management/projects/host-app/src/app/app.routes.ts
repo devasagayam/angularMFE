@@ -13,8 +13,8 @@ export const routes: Routes = [
         loadChildren: () => {
             return loadRemoteModule({
                 remoteEntry: REMOTE_ENTRY_URL,
-                remoteName: 'mfeApp', // ✅ Ensure correct name
-                exposedModule: './AddUserModule' // ✅ Match exactly with `exposes`
+                type:"module",
+                exposedModule: './AddUserModule' 
             }).then(m => m.AddUserModule)
               .catch(error => console.error("Error loading remote module:", error));
         }

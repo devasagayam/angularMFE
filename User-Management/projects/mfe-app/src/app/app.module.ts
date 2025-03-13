@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { userFacadeInitializer, userFacadeProvider } from './services/user-facade.provider';
 
 @NgModule({
   declarations: [
@@ -14,8 +15,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule
+    
   ],
-  providers: [],
+  providers: [
+    // userFacadeProvider,
+    // userFacadeInitializer
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

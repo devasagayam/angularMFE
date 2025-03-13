@@ -1,14 +1,18 @@
 const { shareAll, withModuleFederationPlugin } = require('@angular-architects/module-federation/webpack');
 
 module.exports = withModuleFederationPlugin({
-  name: 'mfeApp', // ✅ Match with remoteName
+  name: 'mfeApp', 
   filename: 'remoteEntry.js',
 
   exposes: {
-    './AddUserModule': './projects/mfe-app/src/app/add-user/add-user.module.ts', // ✅ Ensure exact path
+    './AddUserModule': './projects/mfe-app/src/app/add-user/add-user.module.ts', 
+  },
+
+  remotes: {
+    hostApp: "hostApp@http://localhost:4200/remoteEntry.js"
   },
 
   shared: {
-    ...shareAll({ singleton: true, strictVersion: true, requiredVersion: 'auto' }),
+    ...shareAll({ singleton: true, strictVersion: false, requiredVersion: 'auto' }),
   },
 });
